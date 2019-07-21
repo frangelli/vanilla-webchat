@@ -1,5 +1,6 @@
 import { template } from "lodash";
 import { postMessage } from "services";
+import { getCurrentUser } from "utils";
 
 require("./styles.scss");
 export default class MessageInput {
@@ -37,7 +38,8 @@ export default class MessageInput {
     e.preventDefault();
     const content = this.$messageField.value;
     if (content) {
-      postMessage({ author: "leo", message: content }).then(response => {
+      const user = getCurrentUser();
+      postMessage({ author: user, message: content }).then(response => {
         document.dispatchEvent(
           new CustomEvent("add-message", {
             detail: { message: response.data },
