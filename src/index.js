@@ -1,5 +1,7 @@
+import { getCurrentUser } from "utils";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
+import Login from "./Login";
 
 require("./styles/main.scss");
 class VanillaWebchat {
@@ -10,14 +12,30 @@ class VanillaWebchat {
   `;
 
   constructor() {
-    this.container = document.body;
+    this.$container = document.body;
+    this.$el = null;
     this.setupUI();
+    this.setupEvents();
   }
 
   setupUI = () => {
-    this.container.innerHTML = this.elementTemplate;
+    this.$container.innerHTML = this.elementTemplate;
+    this.$el = document.querySelector("#main");
+    const user = getCurrentUser();
+    if (!user) {
+      this.$el.classList.add("hidden");
+    }
     new MessageList();
     new MessageInput();
+    new Login();
+  };
+
+  setupEvents = () => {
+    document.addEventListener("login", this.onLogin);
+  };
+
+  onLogin = () => {
+    this.$el.classList.remove("hidden");
   };
 }
 

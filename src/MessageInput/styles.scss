@@ -1,0 +1,25 @@
+@import "../styles/variables";
+
+#message-input {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: grid;
+  grid-template-columns: auto 80px;
+  grid-gap: 10px;
+  padding: 20px;
+  height: 40px;
+  background: $blue;
+
+  #send-btn {
+    color: $white;
+    background: $orange;
+    border-radius: 5px;
+  }
+
+  #message-field {
+    border-radius: 5px;
+    padding: 5px;
+  }
+}

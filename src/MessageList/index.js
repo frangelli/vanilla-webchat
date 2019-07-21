@@ -1,5 +1,5 @@
-import { template } from "lodash";
 import { fetchMessages } from "services";
+import { getCurrentUser } from "utils";
 import Message from "./Message";
 
 require("./styles.scss");
@@ -8,6 +8,7 @@ export default class MessageList {
     this.$container = document.querySelector("#main");
     this.$el = null;
     this.messages = [];
+    this.lastFetch = Date.parse(new Date(Date.now() - 86400000));
     this.setupUI();
     this.setupEvents();
     this.setupData();
@@ -21,18 +22,29 @@ export default class MessageList {
 
   setupEvents = () => {
     document.addEventListener("add-message", this.onAddMessage);
+    document.addEventListener("login", this.onLogin);
+    // setup the interval to check for new messages
+    this.interval = setInterval(this.setupData, 10000);
   };
 
   setupData = () => {
-    fetchMessages().then(response => {
-      this.renderMessages(response.data);
+    fetchMessages(this.lastFetch).then(response => {
+      if (response.data.length > 0) {
+        this.messages = [...this.messages, ...response.data];
+        this.renderMessages();
+      }
+      this.lastFetch = Date.now();
     });
   };
 
-  renderMessages = messages => {
-    messages.forEach(message => {
-      new Message(message);
-    });
+  renderMessages = () => {
+    const user = getCurrentUser();
+    if (user) {
+      this.messages.forEach(message => {
+        new Message(message);
+      });
+      window.scrollTo(0, document.body.scrollHeight);
+    }
   };
 
   // Event Handlers
@@ -40,7 +52,12 @@ export default class MessageList {
     const { message } = e.detail;
     if (message) {
       this.messages.push(message);
-      this.renderMessages(this.messages);
+      this.renderMessages();
+      this.lastFetch = Date.now();
     }
+  };
+
+  onLogin = () => {
+    this.renderMessages();
   };
 }

@@ -7,10 +7,20 @@ body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  background: $light-gray;
   font-family: "PT Sans", sans-serif;
+  background: url("../images/pattern.jpg") repeat;
+  max-height: 100%;
+  min-height: 100%;
+  font-size: 14px;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+#main {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 80px;
+  background: $alpha-gray;
 }

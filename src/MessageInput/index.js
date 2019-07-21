@@ -44,6 +44,7 @@ export default class MessageInput {
             bubbles: true
           })
         );
+        this.$messageField.value = "";
       });
     }
   };
