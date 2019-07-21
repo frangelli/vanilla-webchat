@@ -1,4 +1,5 @@
 import MessageList from "./MessageList";
+import MessageInput from "./MessageInput";
 
 require("./styles/main.scss");
 class VanillaWebchat {
@@ -16,6 +17,7 @@ class VanillaWebchat {
   setupUI = () => {
     this.container.innerHTML = this.elementTemplate;
     new MessageList();
+    new MessageInput();
   };
 }
 

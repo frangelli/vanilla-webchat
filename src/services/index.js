@@ -9,9 +9,9 @@ export const fetchMessages = () => {
 
 export const postMessage = ({ message, author }) => {
   return axios.post(
-    `${API_BASE_URL}/users`,
+    `${API_BASE_URL}`,
     { message, author },
-    { token: TOKEN }
+    { headers: { token: TOKEN } }
   );
 };
 

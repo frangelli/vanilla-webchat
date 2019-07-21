@@ -19,7 +19,9 @@ export default class MessageList {
     this.$container.appendChild(this.$el);
   };
 
-  setupEvents = () => {};
+  setupEvents = () => {
+    document.addEventListener("add-message", this.onAddMessage);
+  };
 
   setupData = () => {
     fetchMessages().then(response => {
@@ -32,5 +34,13 @@ export default class MessageList {
       new Message(message);
     });
   };
+
   // Event Handlers
+  onAddMessage = e => {
+    const { message } = e.detail;
+    if (message) {
+      this.messages.push(message);
+      this.renderMessages(this.messages);
+    }
+  };
 }
