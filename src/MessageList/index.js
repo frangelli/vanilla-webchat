@@ -1,6 +1,8 @@
 import { template } from "lodash";
 import { fetchMessages } from "services";
+import Message from "./Message";
 
+require("./styles.scss");
 export default class MessageList {
   constructor() {
     this.$container = document.querySelector("#main");
@@ -21,9 +23,14 @@ export default class MessageList {
 
   setupData = () => {
     fetchMessages().then(response => {
-      console.log(response);
+      this.renderMessages(response.data);
     });
   };
 
+  renderMessages = messages => {
+    messages.forEach(message => {
+      new Message(message);
+    });
+  };
   // Event Handlers
 }
