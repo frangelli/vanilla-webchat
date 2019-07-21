@@ -1,5 +1,7 @@
 # VanillaJS WebChat
 
+A running demo can be found [HERE](https://nameless-headland-22777.herokuapp.com)
+
 ## Why VanillaJS?
 
 Everytime we think about creating a new application, one of the first things that come to us is: "Which framework... ".
